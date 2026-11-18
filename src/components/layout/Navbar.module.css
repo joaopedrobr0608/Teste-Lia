@@ -1,0 +1,175 @@
+.wrapper {
+  position: sticky;
+  top: 12px;
+  z-index: 50;
+  width: min(100%, 1240px);
+  margin: 12px auto;
+  padding-inline: var(--gutter);
+}
+
+.bar {
+  position: relative;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 24px;
+  height: var(--nav-height);
+  padding-inline: 20px 12px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  transition:
+    background-color 0.3s ease,
+    border-color 0.3s ease,
+    box-shadow 0.3s ease;
+}
+
+.barScrolled {
+  border-color: var(--line);
+  background: var(--nav-glass);
+  box-shadow: var(--shadow-nav);
+  backdrop-filter: blur(16px) saturate(1.4);
+}
+
+.logo {
+  display: block;
+  color: var(--text);
+  transition: color 0.25s ease;
+}
+
+.logo:hover {
+  color: var(--purple);
+}
+
+.nav {
+  display: flex;
+  align-items: center;
+  gap: 28px;
+  margin-left: auto;
+}
+
+.actions {
+  display: flex;
+  align-items: center;
+  gap: 4px;
+}
+
+.list {
+  display: flex;
+  gap: 4px;
+}
+
+.link {
+  position: relative;
+  display: block;
+  padding: 8px 14px;
+  color: var(--text-soft);
+  font-size: 0.9375rem;
+  font-weight: 500;
+  transition: color 0.2s ease;
+}
+
+/* Traço roxo que cresce no hover e permanece, com brilho, na página atual. */
+.link::after {
+  content: '';
+  position: absolute;
+  left: 14px;
+  right: 14px;
+  bottom: 4px;
+  height: 2px;
+  border-radius: 2px;
+  background: var(--purple);
+  transform: scaleX(0);
+  transform-origin: left;
+  transition: transform 0.35s var(--ease);
+}
+
+.link:hover {
+  color: var(--text);
+}
+
+.link:hover::after {
+  transform: scaleX(1);
+}
+
+.linkActive {
+  color: var(--text);
+  font-weight: 600;
+}
+
+.linkActive::after {
+  background: var(--purple);
+  box-shadow: 0 0 8px var(--purple);
+  transform: scaleX(1);
+}
+
+.cta {
+  min-height: 42px;
+  padding-inline: 18px;
+  font-size: 0.875rem;
+}
+
+.menuButton {
+  display: none;
+  place-items: center;
+  width: 44px;
+  height: 44px;
+  border: 0;
+  border-radius: 50%;
+  background: transparent;
+  color: var(--text);
+  cursor: pointer;
+}
+
+.menuButton svg {
+  width: 22px;
+  height: 22px;
+}
+
+@media (max-width: 760px) {
+  .menuButton {
+    display: grid;
+  }
+
+  .nav {
+    position: absolute;
+    top: calc(100% + 8px);
+    left: 0;
+    right: 0;
+    display: grid;
+    gap: 16px;
+    padding: 16px;
+    border: 1px solid var(--line);
+    border-radius: var(--radius-md);
+    background: var(--surface);
+    box-shadow: var(--shadow-lift);
+    opacity: 0;
+    visibility: hidden;
+    transform: translateY(-8px);
+    transition:
+      opacity 0.2s ease,
+      transform 0.3s var(--ease),
+      visibility 0.2s;
+  }
+
+  .navOpen {
+    opacity: 1;
+    visibility: visible;
+    transform: none;
+  }
+
+  .list {
+    display: grid;
+  }
+
+  .link {
+    padding: 12px;
+  }
+
+  .link::after {
+    display: none;
+  }
+
+  .linkActive {
+    color: var(--purple);
+  }
+}

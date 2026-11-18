@@ -1,0 +1,8 @@
+.page {
+  padding-block: clamp(40px, 6vw, 72px) var(--section-space);
+}
+
+.list {
+  display: grid;
+  gap: 32px;
+}

@@ -1,0 +1,265 @@
+/* Painel que acompanha o tema, como o hero. */
+.stage {
+  --purple: var(--panel-purple);
+
+  position: relative;
+  overflow: hidden;
+  padding: clamp(32px, 6vw, 56px) clamp(20px, 5vw, 40px);
+  border: 1px solid var(--panel-border);
+  border-radius: var(--radius-lg);
+  background: var(--panel);
+  box-shadow: var(--panel-shadow);
+}
+
+/* Palavra de fundo: contorno roxo que se apaga em direção à base do painel. */
+.word {
+  position: absolute;
+  inset: 0;
+  display: grid;
+  align-content: start;
+  padding-top: 0.14em;
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(5.5rem, 13.5vw, 10.5rem);
+  font-weight: 700;
+  line-height: 1;
+  letter-spacing: -0.02em;
+  mask-image: linear-gradient(#000, transparent 280px);
+  pointer-events: none;
+  user-select: none;
+}
+
+.wordLine {
+  color: transparent;
+  white-space: nowrap;
+  -webkit-text-stroke: 1px var(--panel-stroke);
+  transform: translateX(calc(var(--shift, -0.2em) + var(--progress, 0) * var(--drift, 0em)));
+  will-change: transform;
+}
+
+/* A primeira linha fica parada e inteira, para a palavra ser lida; as demais vazam do painel. */
+.wordLine:first-child {
+  --shift: 0.08em;
+}
+
+.wordLine:nth-child(even) {
+  --shift: -1.3em;
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  .wordLine:nth-child(n + 2) {
+    --drift: -0.8em;
+  }
+
+  .wordLine:nth-child(even) {
+    --drift: 0.8em;
+  }
+}
+
+/* O mesmo ponto de luz roxa do hero. */
+.glow {
+  position: absolute;
+  right: -80px;
+  bottom: -120px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: var(--purple-brand);
+  opacity: var(--panel-glow-opacity);
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.slides {
+  position: relative;
+  display: grid;
+  gap: 40px;
+  margin: 0;
+  padding: 0;
+  list-style: none;
+}
+
+.slide {
+  display: grid;
+  gap: 24px;
+}
+
+.copy {
+  display: grid;
+  justify-items: start;
+  gap: 14px;
+}
+
+.kicker {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  color: var(--panel-text-soft);
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+}
+
+.kicker::before {
+  content: '';
+  flex-shrink: 0;
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--purple);
+  box-shadow: 0 0 10px var(--purple);
+}
+
+.name {
+  color: var(--panel-heading);
+  font-size: clamp(1.75rem, 3vw, 2.375rem);
+}
+
+.summary {
+  max-width: 420px;
+  color: var(--panel-text-soft);
+  font-size: 1.0625rem;
+}
+
+.link {
+  margin-top: 6px;
+}
+
+.frame {
+  position: relative;
+  order: -1;
+  overflow: hidden;
+  aspect-ratio: 550 / 282;
+  border: 1px solid var(--panel-line);
+  border-radius: var(--radius-md);
+  background: var(--ink);
+}
+
+.frame img {
+  object-fit: cover;
+}
+
+.rail {
+  display: none;
+}
+
+/* Com espaço na tela, os projetos se revezam no palco conforme a rolagem. */
+@media screen and (min-width: 861px) and (min-height: 600px) {
+  .track {
+    --stage-top: calc(var(--nav-height) + 24px);
+    --stage-height: min(calc(100svh - var(--stage-top) - 16px), 720px);
+
+    height: calc(var(--stage-height) + (var(--count) - 1) * 70svh);
+  }
+
+  .stage {
+    position: sticky;
+    top: var(--stage-top);
+    display: flex;
+    align-items: center;
+    height: var(--stage-height);
+    padding: 0 clamp(24px, 5vw, 64px);
+  }
+
+  /* Linha horizontal que atravessa o painel, separando a cena da base. */
+  .stage::after {
+    content: '';
+    position: absolute;
+    inset: auto 0 11%;
+    height: 1px;
+    background: var(--panel-line);
+    pointer-events: none;
+  }
+
+  .word {
+    mask-image: linear-gradient(#000, transparent 92%);
+  }
+
+  .slides {
+    flex: 1;
+    min-width: 0;
+    margin-right: clamp(32px, 4vw, 56px);
+  }
+
+  /* A imagem ganha a maior parte da largura; o texto fica numa coluna mais estreita. */
+  .slide {
+    grid-area: 1 / 1;
+    grid-template-columns: minmax(0, 1fr) minmax(0, 1.7fr);
+    gap: clamp(28px, 3.5vw, 48px);
+    align-items: center;
+    pointer-events: none;
+  }
+
+  /* Os inativos só ficam transparentes: continuam acessíveis ao teclado e a leitores de tela. */
+  .slideActive {
+    z-index: 1;
+    pointer-events: auto;
+  }
+
+  .copy,
+  .frame {
+    opacity: 0;
+    transition:
+      opacity 0.45s ease,
+      transform 0.7s var(--ease);
+  }
+
+  .copy {
+    transform: translateY(20px);
+  }
+
+  .frame {
+    order: 0;
+    box-shadow: var(--frame-shadow);
+    transform: perspective(1600px) rotateY(-12deg) rotateX(3deg) translateX(32px);
+  }
+
+  .slideActive .copy,
+  .slideActive .frame {
+    opacity: 1;
+  }
+
+  .slideActive .copy {
+    transform: none;
+  }
+
+  .slideActive .frame {
+    transform: perspective(1600px) rotateY(-5deg) rotateX(1.5deg);
+  }
+
+  /* Indicador de progresso, na lateral direita. */
+  .rail {
+    position: absolute;
+    top: 50%;
+    right: clamp(16px, 2vw, 28px);
+    display: grid;
+    justify-items: center;
+    gap: 10px;
+    transform: translateY(-50%);
+  }
+
+  .railTrack {
+    overflow: hidden;
+    width: 2px;
+    height: 88px;
+    border-radius: 2px;
+    background: var(--panel-line);
+  }
+
+  .railFill {
+    display: block;
+    height: 100%;
+    background: var(--purple);
+    box-shadow: 0 0 10px var(--purple);
+    transform: scaleY(var(--progress, 0));
+    transform-origin: top;
+  }
+
+  .railCount {
+    color: var(--panel-text-soft);
+    font-family: var(--font-display), sans-serif;
+    font-size: 0.75rem;
+    font-weight: 600;
+  }
+}

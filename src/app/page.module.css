@@ -1,0 +1,44 @@
+/* Texto pequeno sobre o fundo tingido: o roxo mais escuro do tema mantém a leitura. */
+.projects {
+  --purple: var(--purple-strong);
+
+  position: relative;
+  isolation: isolate;
+}
+
+/* Fundo próprio da seção. Cobre as luzes gerais da página e se funde a ela nas duas pontas. */
+.backdrop {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  display: block;
+  background: var(--projects-bg);
+  mask-image: linear-gradient(
+    transparent,
+    #000 clamp(80px, 10vw, 160px),
+    #000 calc(100% - clamp(80px, 10vw, 160px)),
+    transparent
+  );
+  pointer-events: none;
+}
+
+/* Luzes presas à tela: uma de cada lado, sem passar como manchas durante a rolagem. */
+.lights {
+  position: sticky;
+  top: 0;
+  display: block;
+  height: 100svh;
+  background-image:
+    radial-gradient(ellipse 42% 75% at 0% 28%, var(--projects-glow-purple), transparent),
+    radial-gradient(ellipse 42% 75% at 100% 72%, var(--projects-glow-blue), transparent);
+}
+
+/* O mesmo pontilhado do restante do site, concentrado nas bordas. */
+.lights::before {
+  content: '';
+  position: absolute;
+  inset: 0;
+  background-image: radial-gradient(circle, var(--bg-dot) 1px, transparent 1.5px);
+  background-size: 30px 30px;
+  mask-image: radial-gradient(ellipse 75% 80% at 50% 50%, transparent 35%, #000 100%);
+}

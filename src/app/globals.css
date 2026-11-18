@@ -1,0 +1,400 @@
+/* Identidade visual da LIA: tokens, base e os poucos utilitários compartilhados. */
+
+:root {
+  /* Paleta oficial */
+  --ink: #0e1b2b;
+  --blue: #1a73e9;
+  --mist: #e6eaed;
+
+  /* Roxo da Oxygeni: cor de tudo que é clicável ou responde à pessoa. A versão clara mantém o
+     contraste sobre fundos escuros; o azul segue nos títulos e nos links de texto. */
+  --purple-brand: #7b2cff;
+  --purple-deep: #681ce3;
+  --purple-on-dark: #a872ff;
+
+  /* Iguais nos dois temas */
+  --white: #ffffff;
+  --blue-deep: #1259b8;
+
+  /* Formas */
+  --radius-sm: 10px;
+  --radius-md: 16px;
+  --radius-lg: 28px;
+
+  /* Medidas */
+  --gutter: clamp(16px, 4vw, 40px);
+  --section-space: clamp(72px, 10vw, 128px);
+  --nav-height: 64px;
+  --ease: cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* Tema claro: é o padrão do site. */
+:root,
+[data-theme='light'] {
+  color-scheme: light;
+  /* Branco suavizado: o branco puro cansa a vista em áreas grandes. */
+  --bg: #f0f2f5;
+  --surface: #f9fafb;
+  --surface-muted: #eceff2;
+  --band: rgba(14, 27, 43, 0.028);
+  --bg-dot: rgba(14, 27, 43, 0.24);
+  --bg-glow-blue: rgba(26, 115, 233, 0.13);
+  --bg-glow-purple: rgba(123, 44, 255, 0.11);
+  --projects-bg: #eef0f5;
+  --projects-glow-purple: rgba(123, 44, 255, 0.13);
+  --projects-glow-blue: rgba(26, 115, 233, 0.17);
+  --text: var(--ink);
+  --text-soft: #52606f;
+  --text-disabled: #8593a1;
+  --line: rgba(14, 27, 43, 0.1);
+  /* Títulos grandes usam o azul oficial; texto pequeno, um tom levemente mais escuro para leitura. */
+  --accent-display: var(--blue);
+  --accent: #1460cc;
+  --accent-strong: var(--blue-deep);
+  --accent-soft: rgba(26, 115, 233, 0.08);
+  --purple: var(--purple-brand);
+  --purple-strong: var(--purple-deep);
+  --purple-soft: rgba(123, 44, 255, 0.1);
+  --purple-glow: rgba(123, 44, 255, 0.24);
+  /* Painéis em destaque (hero, projetos, rodapé): um cinza-lavanda suave, da mesma família do
+     roxo da marca, um pouco mais escuro que o fundo para o quadro se destacar sem pesar. */
+  --panel: linear-gradient(160deg, #e8eaf2 0%, #dfe2ee 100%);
+  --panel-border: rgba(14, 27, 43, 0.1);
+  --panel-shadow: inset 0 1px 0 rgba(255, 255, 255, 0.6), 0 24px 60px -32px rgba(14, 27, 43, 0.38);
+  --panel-heading: var(--ink);
+  --panel-text: #2b3a4b;
+  --panel-text-soft: #4f5d6d;
+  --panel-line: rgba(14, 27, 43, 0.12);
+  --panel-purple: var(--purple-brand);
+  --panel-stroke: rgba(123, 44, 255, 0.2);
+  --panel-glow-opacity: 0.2;
+  --glass-bg: rgba(255, 255, 255, 0.62);
+  --glass-border: rgba(14, 27, 43, 0.08);
+  --glass-shadow: 0 24px 48px -30px rgba(14, 27, 43, 0.35);
+  --frame-shadow: 0 30px 60px -30px rgba(14, 27, 43, 0.45), 0 0 70px -24px rgba(123, 44, 255, 0.35);
+  /* Brilho desfocado do canto superior esquerdo. */
+  /* No claro, só um lilás leve: o azul deixava o fundo com aspecto manchado. */
+  --corner-glow-core: rgba(123, 44, 255, 0.09);
+  --corner-glow-edge: rgba(123, 44, 255, 0.04);
+  --nav-glass: rgba(249, 250, 251, 0.92);
+  --shadow-lift: 0 18px 40px -18px rgba(14, 27, 43, 0.28);
+  --shadow-nav: 0 10px 30px -18px rgba(14, 27, 43, 0.35);
+  --shadow-chip: 0 4px 12px -4px rgba(14, 27, 43, 0.25);
+}
+
+/* Tema escuro: o azul de texto é mais claro para manter a leitura sobre o fundo escuro. */
+[data-theme='dark'] {
+  color-scheme: dark;
+  --bg: var(--ink);
+  --surface: #15263a;
+  --surface-muted: rgba(230, 234, 237, 0.045);
+  --band: rgba(230, 234, 237, 0.03);
+  --bg-dot: rgba(230, 234, 237, 0.13);
+  --bg-glow-blue: rgba(26, 115, 233, 0.17);
+  --bg-glow-purple: rgba(123, 44, 255, 0.18);
+  --projects-bg: #0a1524;
+  --projects-glow-purple: rgba(123, 44, 255, 0.3);
+  --projects-glow-blue: rgba(26, 115, 233, 0.24);
+  --text: var(--mist);
+  --text-soft: #a3b0bd;
+  --text-disabled: #7f8fa0;
+  --line: rgba(230, 234, 237, 0.13);
+  --accent-display: #6aa9f8;
+  --accent: #6aa9f8;
+  --accent-strong: #a4c9fb;
+  --accent-soft: rgba(106, 169, 248, 0.15);
+  --purple: var(--purple-on-dark);
+  --purple-strong: #c78bff;
+  --purple-soft: rgba(168, 114, 255, 0.16);
+  --purple-glow: rgba(168, 114, 255, 0.3);
+  --panel: #15263a;
+  --panel-border: rgba(230, 234, 237, 0.08);
+  --panel-shadow: none;
+  --panel-heading: var(--white);
+  --panel-text: var(--mist);
+  --panel-text-soft: #a3b0bd;
+  --panel-line: rgba(230, 234, 237, 0.14);
+  --panel-purple: var(--purple-on-dark);
+  --panel-stroke: rgba(168, 114, 255, 0.34);
+  --panel-glow-opacity: 0.38;
+  --glass-bg: rgba(230, 234, 237, 0.07);
+  --glass-border: rgba(230, 234, 237, 0.16);
+  --glass-shadow: 0 24px 48px -28px rgba(0, 0, 0, 0.7);
+  --frame-shadow: 0 30px 60px -24px rgba(0, 0, 0, 0.7), 0 0 70px -20px rgba(168, 114, 255, 0.45);
+  --corner-glow-core: rgba(26, 115, 233, 0.18);
+  --corner-glow-edge: rgba(123, 44, 255, 0.13);
+  --nav-glass: rgba(21, 38, 58, 0.88);
+  --shadow-lift: 0 18px 40px -18px rgba(0, 0, 0, 0.65);
+  --shadow-nav: 0 10px 30px -18px rgba(0, 0, 0, 0.7);
+  --shadow-chip: 0 4px 12px -4px rgba(0, 0, 0, 0.5);
+}
+
+*,
+*::before,
+*::after {
+  box-sizing: border-box;
+  /* A fonte tem espaços curtos: sem isso, textos pequenos parecem uma palavra só. */
+  word-spacing: 0.08em;
+}
+
+html {
+  scroll-behavior: smooth;
+  scroll-padding-top: calc(var(--nav-height) + 32px);
+  -webkit-text-size-adjust: 100%;
+}
+
+body {
+  position: relative;
+  isolation: isolate;
+  margin: 0;
+  min-height: 100svh;
+  display: flex;
+  flex-direction: column;
+  background: var(--bg);
+  color: var(--text);
+  font-family: var(--font-body), system-ui, sans-serif;
+  font-size: 1rem;
+  line-height: 1.65;
+  -webkit-font-smoothing: antialiased;
+}
+
+/* Fundo do site: tudo fica atrás do conteúdo e nada ocupa espaço no layout. */
+@media screen {
+  /* Pontilhado do hero, fixo na tela e concentrado nas bordas para não disputar com a leitura. */
+  body::before {
+    content: '';
+    position: fixed;
+    inset: 0;
+    z-index: -1;
+    background-image: radial-gradient(circle, var(--bg-dot) 1px, transparent 1.5px);
+    background-size: 30px 30px;
+    mask-image: radial-gradient(ellipse 75% 80% at 50% 50%, transparent 35%, #000 100%);
+    pointer-events: none;
+  }
+
+  /* No celular o texto ocupa toda a largura, então os pontos ficam mais suaves. */
+  @media (max-width: 760px) {
+    body::before {
+      opacity: 0.55;
+    }
+  }
+
+  /* Luzes difusas que acompanham a página, alternando os lados ao longo da rolagem. */
+  body::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    z-index: -1;
+    background-image:
+      radial-gradient(circle 640px at 100% 24%, var(--bg-glow-blue), transparent),
+      radial-gradient(circle 520px at 0% 44%, var(--bg-glow-purple), transparent),
+      radial-gradient(circle 680px at 0% 70%, var(--bg-glow-blue), transparent),
+      radial-gradient(circle 520px at 100% 86%, var(--bg-glow-purple), transparent);
+    pointer-events: none;
+  }
+
+  /* Brilho desfocado no canto superior esquerdo da página. Fica atrás do conteúdo, então o
+     quadro do hero (opaco) o cobre: ele aparece só no canto, fora do quadro. */
+  .sunlight {
+    position: absolute;
+    top: -220px;
+    left: -220px;
+    z-index: -1;
+    width: 620px;
+    height: 620px;
+    border-radius: 50%;
+    background: radial-gradient(
+      circle at 45% 45%,
+      var(--corner-glow-core),
+      var(--corner-glow-edge) 45%,
+      transparent 70%
+    );
+    filter: blur(60px);
+    pointer-events: none;
+  }
+}
+
+main {
+  flex: 1;
+}
+
+h1,
+h2,
+h3,
+p,
+ul {
+  margin: 0;
+}
+
+h1,
+h2,
+h3 {
+  line-height: 1.12;
+  letter-spacing: -0.025em;
+  font-weight: 700;
+  text-wrap: balance;
+}
+
+ul {
+  padding: 0;
+  list-style: none;
+}
+
+a {
+  color: inherit;
+  text-decoration: none;
+}
+
+img {
+  display: block;
+  max-width: 100%;
+}
+
+button {
+  font: inherit;
+  color: inherit;
+}
+
+:focus-visible {
+  outline: 2px solid var(--purple);
+  outline-offset: 3px;
+  border-radius: 4px;
+}
+
+::selection {
+  background: var(--purple-brand);
+  color: var(--white);
+}
+
+/* Utilitários */
+
+.container {
+  width: min(100%, 1240px);
+  margin-inline: auto;
+  padding-inline: var(--gutter);
+}
+
+.section {
+  padding-block: var(--section-space);
+}
+
+.eyebrow {
+  display: inline-flex;
+  align-items: center;
+  gap: 10px;
+  font-family: var(--font-display), sans-serif;
+  font-size: 0.8125rem;
+  font-weight: 600;
+  letter-spacing: 0.1em;
+  text-transform: uppercase;
+  color: var(--purple);
+}
+
+.eyebrow::before {
+  content: '';
+  width: 6px;
+  height: 6px;
+  border-radius: 50%;
+  background: var(--purple);
+  box-shadow: 0 0 10px var(--purple);
+}
+
+.btn {
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  gap: 10px;
+  min-height: 48px;
+  padding: 0 22px;
+  border: 1px solid transparent;
+  border-radius: 999px;
+  font-size: 0.9375rem;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition:
+    background-color 0.25s ease,
+    border-color 0.25s ease,
+    color 0.25s ease,
+    box-shadow 0.25s ease;
+}
+
+.btn svg {
+  width: 16px;
+  height: 16px;
+  transition: transform 0.3s var(--ease);
+}
+
+.btn:hover svg {
+  transform: translateX(3px);
+}
+
+.btn-primary {
+  background: var(--purple-brand);
+  color: var(--white);
+  box-shadow: 0 6px 20px -8px rgba(123, 44, 255, 0.6);
+}
+
+.btn-primary:hover {
+  background: var(--purple-deep);
+  box-shadow: 0 10px 30px -8px rgba(123, 44, 255, 0.85);
+}
+
+.btn-ghost {
+  border-color: var(--line);
+  color: var(--text);
+}
+
+.btn-ghost:hover {
+  border-color: var(--purple);
+  color: var(--purple);
+}
+
+/* Botão de contorno usado dentro dos painéis em destaque: acompanha o tema do painel. */
+.btn-panel {
+  border-color: var(--panel-line);
+  color: var(--panel-heading);
+}
+
+.btn-panel:hover {
+  border-color: var(--panel-purple);
+  background: var(--purple-soft);
+}
+
+/* Entrada suave ao rolar a página. Sem suporte, o conteúdo simplesmente aparece. */
+@supports (animation-timeline: view()) {
+  @media screen and (prefers-reduced-motion: no-preference) {
+    /* Distância fixa: blocos altos não ficam semitransparentes durante a leitura. */
+    .reveal {
+      animation: reveal linear both;
+      animation-timeline: view();
+      animation-range: cover 0px cover 160px;
+    }
+  }
+}
+
+@keyframes reveal {
+  from {
+    opacity: 0;
+    transform: translateY(24px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}
+
+@media (prefers-reduced-motion: reduce) {
+  html {
+    scroll-behavior: auto;
+  }
+
+  *,
+  *::before,
+  *::after {
+    animation-duration: 0.01ms !important;
+    animation-iteration-count: 1 !important;
+    transition-duration: 0.01ms !important;
+  }
+}

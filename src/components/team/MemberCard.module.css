@@ -1,0 +1,146 @@
+.body {
+  padding: 12px 12px 18px;
+}
+
+.portrait {
+  position: relative;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  aspect-ratio: 1 / 0.92;
+  margin-bottom: 16px;
+  border-radius: var(--radius-sm);
+  background: var(--surface-muted);
+  color: var(--accent);
+  font-family: var(--font-display), sans-serif;
+  font-size: clamp(3rem, 6vw, 4rem);
+  font-weight: 700;
+}
+
+.portrait img,
+.avatar img {
+  object-fit: cover;
+}
+
+.name {
+  padding-inline: 4px;
+  font-size: 1.125rem;
+  letter-spacing: -0.015em;
+}
+
+.role {
+  padding-inline: 4px;
+  color: var(--text-soft);
+  font-size: 0.875rem;
+  line-height: 1.5;
+}
+
+.projects {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 6px;
+  margin-top: 12px;
+  padding-inline: 4px;
+}
+
+.projectTag {
+  display: block;
+  padding: 3px 10px;
+  border-radius: 999px;
+  background: var(--purple-soft);
+  color: var(--purple-strong);
+  font-size: 0.75rem;
+  font-weight: 600;
+  transition:
+    background-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.projectTag:hover {
+  background: var(--purple-brand);
+  color: var(--white);
+}
+
+/* Versão compacta, usada dentro dos cards de projeto. */
+.compactCard {
+  position: relative;
+  z-index: 1;
+}
+
+.compactBody {
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  padding: 10px;
+}
+
+.avatar {
+  position: relative;
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  overflow: hidden;
+  width: 44px;
+  height: 44px;
+  border-radius: 50%;
+  background: var(--surface-muted);
+  color: var(--accent);
+  font-family: var(--font-display), sans-serif;
+  font-size: 1.125rem;
+  font-weight: 700;
+}
+
+.compactText {
+  min-width: 0;
+}
+
+.compactName {
+  margin: 0;
+  padding-inline: 4px;
+  font-size: 0.9375rem;
+  font-weight: 700;
+  line-height: 1.3;
+}
+
+.compactText .role {
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
+
+/* Ao receber o cursor (ou o foco), o nome cresce um pouco e ganha o roxo, como o título dos
+   cards de projeto. A escala não muda o layout: os cards vizinhos não saem do lugar. */
+.name,
+.compactName,
+.avatar,
+.portrait {
+  transition:
+    transform 0.35s var(--ease),
+    color 0.25s ease;
+}
+
+.name,
+.compactName {
+  transform-origin: left center;
+}
+
+.card:hover .name,
+.card:focus-within .name {
+  color: var(--purple);
+  transform: scale(1.05);
+}
+
+.card:hover .portrait,
+.card:focus-within .portrait {
+  transform: scale(1.02);
+}
+
+.compactCard:hover .compactName,
+.compactCard:focus-within .compactName {
+  color: var(--purple);
+  transform: scale(1.07);
+}
+
+.compactCard:hover .avatar,
+.compactCard:focus-within .avatar {
+  transform: scale(1.08);
+}

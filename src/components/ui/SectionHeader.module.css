@@ -1,0 +1,45 @@
+.header {
+  display: flex;
+  align-items: flex-end;
+  justify-content: space-between;
+  gap: 32px;
+  margin-bottom: clamp(36px, 5vw, 56px);
+}
+
+.text {
+  display: grid;
+  justify-items: start;
+  gap: 16px;
+  max-width: 720px;
+}
+
+.title {
+  font-size: clamp(2rem, 4.2vw, 3.25rem);
+}
+
+.pageTitle {
+  font-size: clamp(2.5rem, 6vw, 4.5rem);
+}
+
+.title em,
+.pageTitle em {
+  font-style: normal;
+  color: var(--accent-display);
+}
+
+.description {
+  max-width: 600px;
+  color: var(--text-soft);
+  font-size: 1.0625rem;
+}
+
+.action {
+  flex-shrink: 0;
+}
+
+@media (max-width: 720px) {
+  .header {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+}

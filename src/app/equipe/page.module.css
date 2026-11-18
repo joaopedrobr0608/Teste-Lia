@@ -1,0 +1,25 @@
+.page {
+  padding-block: clamp(40px, 6vw, 72px) var(--section-space);
+}
+
+.group {
+  margin-top: clamp(56px, 8vw, 96px);
+}
+
+.groupTitle {
+  margin-bottom: 28px;
+  font-size: clamp(1.5rem, 3vw, 2.25rem);
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(240px, 1fr));
+  gap: 24px;
+}
+
+/* Seis pessoas em três colunas: a grade fecha sem deixar espaços vazios. */
+@media (min-width: 900px) {
+  .gridFeatured {
+    grid-template-columns: repeat(3, 1fr);
+  }
+}

@@ -1,0 +1,100 @@
+/* A janela herda os tokens de onde o botão está: aqui ela volta a seguir o tema da página. */
+.panel {
+  --purple: var(--purple-strong);
+
+  margin: 0;
+  inset: auto;
+  padding: 16px 10px 10px;
+  overflow: visible;
+  border: 1px solid var(--purple-glow);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  color: var(--text);
+  box-shadow:
+    var(--shadow-lift),
+    0 0 36px -14px var(--purple-glow);
+  transition:
+    opacity 0.2s ease,
+    transform 0.3s var(--ease);
+}
+
+/* O display fica só no estado aberto: fechada, a janela segue oculta pelo navegador. */
+.panel:popover-open {
+  display: grid;
+  gap: 4px;
+}
+
+@starting-style {
+  .panel:popover-open {
+    opacity: 0;
+    transform: translateY(-6px);
+  }
+}
+
+.title {
+  padding: 0 10px 8px;
+  color: var(--text-soft);
+  font-size: 0.875rem;
+  font-weight: 500;
+  line-height: 1.4;
+}
+
+.option {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px;
+  border-radius: var(--radius-sm);
+  transition: background-color 0.2s ease;
+}
+
+.option:hover {
+  background: var(--purple-soft);
+}
+
+.icon {
+  display: grid;
+  flex-shrink: 0;
+  place-items: center;
+  width: 40px;
+  height: 40px;
+  border-radius: 50%;
+  background: var(--purple-soft);
+  color: var(--purple-strong);
+}
+
+.icon svg {
+  width: 20px;
+  height: 20px;
+}
+
+.text {
+  display: grid;
+  flex: 1;
+  min-width: 0;
+}
+
+.label {
+  font-size: 0.9375rem;
+  font-weight: 600;
+  line-height: 1.35;
+}
+
+.detail {
+  overflow-wrap: anywhere;
+  color: var(--text-soft);
+  font-size: 0.8125rem;
+  line-height: 1.35;
+}
+
+.arrow {
+  flex-shrink: 0;
+  width: 16px;
+  height: 16px;
+  color: var(--purple-strong);
+  transition: transform 0.3s var(--ease);
+}
+
+.option:hover .arrow {
+  transform: translateX(3px);
+}

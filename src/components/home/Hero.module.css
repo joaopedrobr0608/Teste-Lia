@@ -1,0 +1,109 @@
+.wrapper {
+  margin-top: 4px;
+}
+
+/* O painel acompanha o tema: grafite no escuro, cinza-azulado suave no claro. */
+.panel {
+  --purple: var(--panel-purple);
+
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: clamp(32px, 4vw, 56px);
+  min-height: min(calc(100svh - var(--nav-height) - 56px), 720px);
+  padding: clamp(40px, 6vw, 72px) clamp(24px, 6vw, 80px);
+  border-radius: var(--radius-lg);
+  border: 1px solid var(--panel-border);
+  background: var(--panel);
+  box-shadow: var(--panel-shadow);
+}
+
+/* Um único ponto de luz roxa, afastado do texto. */
+.glow {
+  position: absolute;
+  right: -80px;
+  bottom: -120px;
+  width: 340px;
+  height: 340px;
+  border-radius: 50%;
+  background: var(--purple-brand);
+  opacity: var(--panel-glow-opacity);
+  filter: blur(100px);
+  pointer-events: none;
+}
+
+.content {
+  position: relative;
+  display: grid;
+  justify-items: start;
+  gap: 24px;
+  flex: 0 1 620px;
+  min-width: 0;
+  pointer-events: none;
+}
+
+@media (max-width: 1099px) {
+  .panel {
+    flex-direction: column;
+    align-items: stretch;
+    justify-content: center;
+  }
+
+  .content {
+    flex: 0 0 auto;
+  }
+}
+
+.content a {
+  pointer-events: auto;
+}
+
+.title {
+  display: grid;
+  gap: 6px;
+  font-size: clamp(2.25rem, 5.6vw, 4.5rem);
+  font-weight: 600;
+  line-height: 1.08;
+}
+
+.lineOne {
+  color: var(--panel-heading);
+  animation: rise 0.8s var(--ease) both;
+}
+
+.lineTwo {
+  color: var(--accent-display);
+  font-family: var(--font-display), sans-serif;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+  animation: rise 0.8s 0.1s var(--ease) both;
+}
+
+.description {
+  max-width: 560px;
+  color: var(--panel-text-soft);
+  font-size: clamp(1rem, 1.4vw, 1.125rem);
+  animation: rise 0.8s 0.2s var(--ease) both;
+}
+
+.actions {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 12px;
+  margin-top: 8px;
+  animation: rise 0.8s 0.28s var(--ease) both;
+}
+
+@keyframes rise {
+  from {
+    opacity: 0;
+    transform: translateY(18px);
+  }
+
+  to {
+    opacity: 1;
+    transform: none;
+  }
+}

@@ -1,0 +1,129 @@
+.card {
+  position: relative;
+  isolation: isolate;
+  height: 100%;
+}
+
+.card:hover,
+.card:focus-within {
+  z-index: 2;
+}
+
+/* A superfície cresce sozinha: o conteúdo e os cards vizinhos não saem do lugar. */
+.surface {
+  position: absolute;
+  inset: 0;
+  z-index: -1;
+  border: 1px solid var(--line);
+  border-radius: var(--radius-md);
+  background: var(--surface);
+  transition:
+    inset 0.35s var(--ease),
+    box-shadow 0.35s var(--ease),
+    border-color 0.35s ease;
+}
+
+.card:hover > .surface,
+.card:focus-within > .surface {
+  inset: -8px;
+  border-color: var(--purple-glow);
+  box-shadow:
+    var(--shadow-lift),
+    0 0 36px -14px var(--purple-glow);
+}
+
+.social {
+  position: absolute;
+  top: 8px;
+  right: 8px;
+  z-index: 3;
+  display: flex;
+  gap: 6px;
+  opacity: 0;
+  pointer-events: none;
+  transform: translateY(-4px) scale(0.92);
+  transform-origin: top right;
+  transition:
+    opacity 0.25s ease,
+    transform 0.35s var(--ease);
+}
+
+.card:hover > .social,
+.card:focus-within > .social {
+  opacity: 1;
+  pointer-events: auto;
+  transform: none;
+}
+
+/* Sem cursor (celular e tablet) os links ficam sempre visíveis. */
+@media (hover: none) {
+  .social {
+    opacity: 1;
+    pointer-events: auto;
+    transform: none;
+  }
+}
+
+.link {
+  display: grid;
+  place-items: center;
+  width: 32px;
+  height: 32px;
+  border: 1px solid var(--line);
+  border-radius: 50%;
+  background: var(--surface);
+  color: var(--text);
+  box-shadow: var(--shadow-chip);
+  transition:
+    background-color 0.2s ease,
+    border-color 0.2s ease,
+    color 0.2s ease;
+}
+
+.link svg {
+  width: 15px;
+  height: 15px;
+}
+
+a.link:hover {
+  border-color: var(--purple-brand);
+  background: var(--purple-brand);
+  color: var(--white);
+}
+
+.linkDisabled {
+  color: var(--text-disabled);
+  cursor: not-allowed;
+}
+
+/* Nos cards pequenos os links flutuam sobre a borda expandida. */
+.compact > .social {
+  top: -16px;
+  right: -6px;
+}
+
+.compact .link {
+  width: 28px;
+  height: 28px;
+}
+
+.compact > .surface {
+  border-radius: var(--radius-sm);
+}
+
+.compact:hover > .surface,
+.compact:focus-within > .surface {
+  inset: -6px;
+}
+
+@media (hover: none) {
+  .compact > .social {
+    top: 6px;
+    right: 6px;
+  }
+
+  .compact .link {
+    width: 28px;
+    height: 28px;
+  }
+}
