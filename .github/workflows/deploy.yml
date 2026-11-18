@@ -1,0 +1,61 @@
+# Publica o site no GitHub Pages a cada push na branch main.
+# Também pode ser rodado na mão em: Actions > Deploy no GitHub Pages > Run workflow.
+name: Deploy no GitHub Pages
+
+on:
+  push:
+    branches: [main]
+  workflow_dispatch:
+
+permissions:
+  contents: read
+  pages: write
+  id-token: write
+
+# Evita dois deploys ao mesmo tempo; o mais novo vence.
+concurrency:
+  group: pages
+  cancel-in-progress: true
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Baixar o código
+        uses: actions/checkout@v4
+
+      - name: Instalar Node.js
+        uses: actions/setup-node@v4
+        with:
+          node-version: 22
+          cache: npm
+
+      - name: Configurar o GitHub Pages
+        id: pages
+        uses: actions/configure-pages@v5
+
+      - name: Instalar dependências
+        run: npm ci
+
+      - name: Gerar o site estático
+        run: npm run build
+        env:
+          # "/nome-do-repo" num repositório comum, ou vazio em usuario.github.io
+          # ou com domínio próprio. O GitHub descobre isso sozinho.
+          NEXT_PUBLIC_BASE_PATH: ${{ steps.pages.outputs.base_path }}
+
+      - name: Enviar a pasta out
+        uses: actions/upload-pages-artifact@v3
+        with:
+          path: ./out
+
+  deploy:
+    needs: build
+    runs-on: ubuntu-latest
+    environment:
+      name: github-pages
+      url: ${{ steps.deployment.outputs.page_url }}
+    steps:
+      - name: Publicar
+        id: deployment
+        uses: actions/deploy-pages@v4
